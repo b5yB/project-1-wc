@@ -1,4 +1,4 @@
-let form = document.getelementById("login").addEventListener("submit, login");
+let form = document.getElementById("login").addEventListener("submit", login);
 
 async function login(e){
 	
@@ -26,8 +26,9 @@ async function login(e){
 		
 		});
 		
-		let res = await req.JSON(); 
-		location.href = '../html/home.html';
+		let res = await req.json(); 
+		
+		location.href = '../html/dashboard.html';
 		
 	} catch (e){
 		alert('Username or password was incorrect');

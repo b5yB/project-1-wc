@@ -39,12 +39,12 @@ public class LoginController {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode parsedObj = mapper.readTree(data);
 		
-		String ers_username = parsedObj.get("username").asText();
-		String ers_password = parsedObj.get("password").asText();
+		String username = parsedObj.get("username").asText();
+		String password = parsedObj.get("password").asText();
 		
 		try {
 			System.out.println("Login Controller");
-			User u = uServ.logIn(ers_username, ers_password);
+			User u = uServ.logIn(username, password);
 			System.out.println(u);
 			req.getSession().setAttribute("id", u.getErs_users_id());
 			res.setStatus(200);
