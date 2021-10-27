@@ -33,6 +33,8 @@ ConnectionUtil conUtil = ConnectionUtil.getConUtil();
 				userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7)));
 			}
 			
+			System.out.println(userList);
+			
 			return userList;
 			
 		} catch(SQLException e) {
@@ -73,27 +75,7 @@ ConnectionUtil conUtil = ConnectionUtil.getConUtil();
 		return null;
 	}
 	
-	/* @Override
-	public void createApplication(Application a) throws SQLException {
-		
-		Connection con = conUtil.getCon();
-		
-		String sql = "INSERT INTO applications(username, password, firstN, lastN, ssn, email, openingBalance) values"
-				+ "(?,?,?,?,?,?,?)";
-		PreparedStatement ps = con.prepareStatement(sql);
-		
-		ps.setString(1, a.getUsername());
-		ps.setString(2, a.getPassword());
-		ps.setString(3, a.getFirstN());
-		ps.setString(4, a.getLastN());
-		ps.setInt(5, a.getSsn());
-		ps.setString(6, a.getEmail());
-		ps.setDouble(7, a.getOpeningBalance());
-		
-		ps.execute();
-		
-	}
-	
+	/*
 	@Override
 	public void makeDeposit(double balance, int acctnum, double deposit) throws SQLException {
 			
@@ -156,7 +138,7 @@ ConnectionUtil conUtil = ConnectionUtil.getConUtil();
 		
 		try {
 			Connection con = conUtil.getCon();
-			String sql = "UPDATE users SET ers_username = ?, ers_password = ?, user_first_name = ?, user_last_name = ?, user_email = ?, user_role_id = ?"
+			String sql = "UPDATE ers_users SET ers_username = ?, ers_password = ?, user_first_name = ?, user_last_name = ?, user_email = ?, user_role_id = ?"
 					+ "WHERE ers_users.ers_users_id = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -167,6 +149,9 @@ ConnectionUtil conUtil = ConnectionUtil.getConUtil();
 			ps.setString(4, u.getUser_last_name());
 			ps.setString(5, u.getUser_email());
 			ps.setInt(6, u.getUser_role_id());
+			ps.setInt(7, u.getErs_users_id());
+			
+			ps.execute();
 			
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -188,6 +173,26 @@ ConnectionUtil conUtil = ConnectionUtil.getConUtil();
 			e.printStackTrace();
 		}
 		
+		
+	}
+
+	@Override
+	public void createUser(User u) throws SQLException {
+		
+		Connection con = conUtil.getCon();
+		
+		String sql = "INSERT INTO ers_users (ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id) values"
+				+ "(?,?,?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, u.getErs_username());
+		ps.setString(2, u.getErs_password());
+		ps.setString(3, u.getUser_first_name());
+		ps.setString(4, u.getUser_last_name());
+		ps.setString(5, u.getUser_email());
+		ps.setInt(6, u.getUser_role_id());
+		
+		ps.execute();
 		
 	}
 

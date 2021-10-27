@@ -19,6 +19,8 @@ public interface UserDao {
 	
 	//void transfer(double balance, int acctnum, int recievingAcctnum, double transfer) throws SQLException;
 	
+	void createUser (User u) throws SQLException;
+	
 	void updateUser(User u);
 	
 	void deleteUser(User u);
