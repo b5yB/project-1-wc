@@ -7,14 +7,19 @@ import com.project1.models.Reimbursement;
 
 public interface ReimbursementDao {
 
-	List<Reimbursement> getAllReimbursements();
-	
-	Reimbursement getReimbursementByAuthor(int reimb_author);
-	
-	void createReimbursement(Reimbursement r) throws SQLException;
+	void createReimbursement(Reimbursement r);
 	
 	void updateReimbursement(Reimbursement r);
 	
-	void deleteReimbursement(Reimbursement r);
+	void deleteReimbursement(int reimb_id);
+
+	Reimbursement getReimbursementByStatus(int reimb_status);
+	
+	Reimbursement getReimbursementByAuthor(int reimb_author);
+	
+	Reimbursement getReimbursementById(int reimb_id);
+	
+	List<Reimbursement> getAllReimbursements();	
+
 	
 }

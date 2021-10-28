@@ -60,6 +60,43 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 		return null;
 	
 	}
+	
+	@Override
+	public Reimbursement getReimbursementById(int reimb_id) {
+		
+		Reimbursement r = new Reimbursement();
+		
+		try {
+			Connection con = conUtil.getCon();
+			
+			String sql = "SELECT * FROM ers_reimbursement WHERE ers_reimbursement.reimb_id = '" + reimb_id + "'";
+			
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			
+			while(rs.next()) {
+				r.setReimb_id(rs.getInt(1));
+				r.setReimb_amount(rs.getDouble(2));
+				r.setReimb_submitted(rs.getTimestamp(3));
+				r.setReimb_resolved(rs.getTimestamp(4));
+				r.setReimb_description(rs.getString(5));
+				//r.setReimb_receipt(rs.getBlob(6));
+				r.setReimb_author(rs.getInt(6));
+				r.setReimb_resolver(rs.getInt(7));
+				r.setReimb_status_id(rs.getInt(8));
+				r.setReimb_type_id(rs.getInt(9));
+
+			}
+			
+			System.out.println(r);
+			
+			return r;
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public Reimbursement getReimbursementByAuthor(int reimb_author) {
@@ -97,27 +134,73 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 		}
 		return null;
 	}
+	
+	
+	@Override
+	public Reimbursement getReimbursementByStatus(int reimb_status) {
+		
+		Reimbursement r = new Reimbursement();
+		
+		try {
+			Connection con = conUtil.getCon();
+			
+			String sql = "SELECT * FROM ers_reimbursement WHERE ers_reimbursement.reimb_status = '" + reimb_status + "'";
+			
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			
+			while(rs.next()) {
+				r.setReimb_id(rs.getInt(1));
+				r.setReimb_amount(rs.getDouble(2));
+				r.setReimb_submitted(rs.getTimestamp(3));
+				r.setReimb_resolved(rs.getTimestamp(4));
+				r.setReimb_description(rs.getString(5));
+				//r.setReimb_receipt(rs.getBlob(6));
+				r.setReimb_author(rs.getInt(6));
+				r.setReimb_resolver(rs.getInt(7));
+				r.setReimb_status_id(rs.getInt(8));
+				r.setReimb_type_id(rs.getInt(9));
+
+			}
+			
+			System.out.println(r);
+			
+			return r;
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
-	public void createReimbursement(Reimbursement r) throws SQLException {
+	public void createReimbursement(Reimbursement r) {
 		
-		Connection con = conUtil.getCon();
+		try {
+			Connection con = conUtil.getCon();
+			
+			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id, reimb_type_id) values"
+					+ "(?,?,?,?,?,?)";
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setDouble(1, r.getReimb_amount());
+			ps.setTimestamp(2, r.getReimb_submitted());
+			//ps.setTimestamp(3, r.getReimb_resolved());
+			ps.setString(3, r.getReimb_description());
+			//ps.setBlob(5, r.getReimb_receipt());
+			ps.setInt(4, r.getReimb_author());
+			//ps.setInt(6, r.getReimb_resolver());
+			ps.setInt(5, r.getReimb_status_id());
+			ps.setInt(6, r.getReimb_type_id());
+	
+			System.out.println(r.toString());
+			
+			ps.execute();
+		}
 		
-		String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_author, reimb_status_id, reimb_type_id) values"
-				+ "(?,?,?,?,?,?,?)";
-		PreparedStatement ps = con.prepareStatement(sql);
-		
-		ps.setDouble(1, r.getReimb_amount());
-		ps.setTimestamp(2, r.getReimb_submitted());
-		ps.setTimestamp(3, r.getReimb_resolved());
-		ps.setString(4, r.getReimb_description());
-		//ps.setBlob(5, r.getReimb_receipt());
-		ps.setInt(5, r.getReimb_author());
-		//ps.setInt(6, r.getReimb_resolver());
-		ps.setInt(6, r.getReimb_status_id());
-		ps.setInt(7, r.getReimb_type_id());
-
-		ps.execute();
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -151,13 +234,13 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 	}
 
 	@Override
-	public void deleteReimbursement(Reimbursement r) {
+	public void deleteReimbursement(int reimb_id) {
 
 		try {
 			Connection con = conUtil.getCon();
 			String sql = "DELETE FROM ers_reimbursement WHERE reimb_id = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, r.getReimb_id());
+			ps.setInt(1, reimb_id);
 			ps.execute();
 		} catch(SQLException e) {
 			e.printStackTrace();

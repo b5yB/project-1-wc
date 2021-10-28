@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.project1.dao.ReimbursementDao;
 import com.project1.dao.UserDao;
 import com.project1.exceptions.InvalidCredentialsException;
-import com.project1.exceptions.UsernameAlreadyExistsException;
+import com.project1.exceptions.UserDoesNotExistException;
 import com.project1.logging.Logging;
+import com.project1.models.Reimbursement;
 import com.project1.models.User;
 
 public class UserService {
@@ -16,10 +18,34 @@ public class UserService {
 	
 	public UserService(UserDao u) {
 		this.uDao = u;
+	}	
+	
+	public User verifyLoginCredentials(String ers_username, String ers_password) throws InvalidCredentialsException, UserDoesNotExistException {
+		
+		User u = uDao.getUserByUsername(ers_username);
+		
+		if(u.getErs_users_id() == 0) {
+			Logging.logger.warn("User tried logging in that does not exist");
+			throw new UserDoesNotExistException();
+		}
+		else if(!u.getErs_password().equals(ers_password)) {
+			Logging.logger.warn("User tried to login with invalid credentials");
+			throw new InvalidCredentialsException();
+		}
+		else {
+			Logging.logger.info("User was logged in");
+			return u;
+		}
 	}
 	
+	public List<User> retrievAllEmployees(){
+		return uDao.getAllEmployees();
+	}
+	
+	//public User logout (User u)
+	
 	/* public Application apply(String username, String password, String firstN, String lastN, int ssn, String email, double openingBalance) throws UsernameAlreadyExistsException {
-		
+	
 		Application a = new Application(username, password, firstN, lastN, ssn, email, openingBalance);
 		
 		try {
@@ -33,20 +59,6 @@ public class UserService {
 		
 		return a;
 	} */
-	
-	public User logIn(String ers_username, String ers_password) throws InvalidCredentialsException{
-		
-		User u = uDao.getUserByUsername(ers_username);
-		
-		if(!u.getErs_password().equals(ers_password)) {
-			Logging.logger.warn("User tried to login with invalid credentials");
-			throw new InvalidCredentialsException();
-		}
-		else {
-			Logging.logger.info("User was logged in");
-			return u;
-		}
-	}
 	
 	/* public void userDashboard(String username) {
 		boolean done = false;

@@ -9,6 +9,8 @@ public interface UserDao {
 	
 	List<User> getAllUsers();
 	
+	List<User> getAllEmployees();
+	
 	User getUserByUsername(String ers_username);
 	
 	//void createApplication(Application a) throws SQLException;

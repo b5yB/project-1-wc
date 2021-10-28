@@ -6,6 +6,7 @@ import com.project1.dao.UserDao;
 import com.project1.dao.UserDaoDB;
 import com.project1.models.Reimbursement;
 import com.project1.models.User;
+import com.project1.services.UserService;
 
 public class ERSDriver {
 
@@ -24,11 +25,11 @@ public class ERSDriver {
 		int reimb_type_id;
 		*/
 		
-		Reimbursement r = new Reimbursement(100.00, null, null, "Food", 3, 1, 1);
+		UserDao uDao = new UserDaoDB();
 		ReimbursementDao rDao = new ReimbursementDaoDB();
-		
-		rDao.createReimbursement(r);
-		
+		UserService uServ = new UserService(uDao);
+	
+		uDao.getAllEmployees();
 		
 	}
 

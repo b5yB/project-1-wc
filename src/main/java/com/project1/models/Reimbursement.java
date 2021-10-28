@@ -33,12 +33,12 @@ public class Reimbursement {
 	}
 	
 	//to db
-	public Reimbursement(Double reimb_amount, Timestamp reimb_submitted, Timestamp reimb_resolved, String reimb_description,
+	public Reimbursement(Double reimb_amount, Timestamp reimb_submitted, String reimb_description,
 			int reimb_author, int reimb_status_id, int reimb_type_id) {
 		//super();
 		this.reimb_amount = reimb_amount;
 		this.reimb_submitted = reimb_submitted;
-		this.reimb_resolved = reimb_resolved;
+		//this.reimb_resolved = reimb_resolved;
 		this.reimb_description = reimb_description;
 		//this.reimb_receipt = reimb_receipt;
 		this.reimb_author = reimb_author;

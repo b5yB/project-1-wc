@@ -43,6 +43,35 @@ ConnectionUtil conUtil = ConnectionUtil.getConUtil();
 		
 		return null;
 	}
+	
+	@Override
+	public List<User> getAllEmployees() {
+		
+		List<User> userList = new ArrayList<User>();
+		
+		try {
+	
+			Connection con = conUtil.getCon();
+			
+			String sql = "SELECT * FROM ers_users WHERE ers_users.user_role_id = '1'";
+			
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			
+			while(rs.next()) {
+				userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7)));
+			}
+			
+			System.out.println(userList);
+			
+			return userList;
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 	@Override
 	public User getUserByUsername(String ers_username) {

@@ -1,0 +1,25 @@
+2021-10-27 14:42:20 INFO  Logging:46 - User was logged in
+2021-10-27 15:15:02 WARN  Logging:42 - User tried to login with invalid credentials
+2021-10-27 16:36:00 WARN  Logging:42 - User tried logging in that does not exist
+2021-10-27 16:36:16 INFO  Logging:50 - User was logged in
+2021-10-27 16:56:50 INFO  Logging:50 - User was logged in
+2021-10-27 16:56:50 INFO  Logging:50 - User was logged in
+2021-10-27 16:56:50 WARN  Logging:46 - User tried to login with invalid credentials
+2021-10-27 16:58:33 INFO  Logging:50 - User was logged in
+2021-10-27 16:58:33 INFO  Logging:50 - User was logged in
+2021-10-27 16:58:33 WARN  Logging:46 - User tried to login with invalid credentials
+2021-10-27 17:04:22 INFO  Logging:50 - User was logged in
+2021-10-27 17:04:22 INFO  Logging:50 - User was logged in
+2021-10-27 17:04:22 WARN  Logging:46 - User tried to login with invalid credentials
+2021-10-27 17:11:35 INFO  Logging:50 - User was logged in
+2021-10-27 17:11:35 INFO  Logging:50 - User was logged in
+2021-10-27 17:11:35 WARN  Logging:46 - User tried to login with invalid credentials
+2021-10-27 17:13:37 INFO  Logging:50 - User was logged in
+2021-10-27 17:13:37 INFO  Logging:50 - User was logged in
+2021-10-27 17:13:37 WARN  Logging:46 - User tried to login with invalid credentials
+2021-10-27 17:14:04 INFO  Logging:50 - User was logged in
+2021-10-27 17:14:04 INFO  Logging:50 - User was logged in
+2021-10-27 17:14:04 WARN  Logging:46 - User tried to login with invalid credentials
+2021-10-27 17:18:49 WARN  Logging:42 - User tried logging in that does not exist
+2021-10-27 17:18:49 INFO  Logging:50 - User was logged in
+2021-10-27 17:18:49 WARN  Logging:46 - User tried to login with invalid credentials

@@ -44,7 +44,7 @@ public class LoginController {
 		
 		try {
 			System.out.println("Login Controller");
-			User u = uServ.logIn(username, password);
+			User u = uServ.verifyLoginCredentials(username, password);
 			System.out.println(u);
 			req.getSession().setAttribute("id", u.getErs_users_id());
 			res.setStatus(200);
