@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 
-
 import com.project1.models.Reimbursement;
 import com.project1.utils.ConnectionUtil;
 
@@ -99,9 +98,9 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 	}
 
 	@Override
-	public Reimbursement getReimbursementByAuthor(int reimb_author) {
-		
-		Reimbursement r = new Reimbursement();
+	public List<Reimbursement> getReimbursementsByAuthor(int reimb_author) {
+				
+		List<Reimbursement> lr = new ArrayList<Reimbursement>();
 		
 		try {
 			Connection con = conUtil.getCon();
@@ -112,22 +111,24 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 			ResultSet rs = s.executeQuery(sql);
 			
 			while(rs.next()) {
+				Reimbursement r = new Reimbursement();
 				r.setReimb_id(rs.getInt(1));
 				r.setReimb_amount(rs.getInt(2));
-				r.setReimb_submitted(rs.getTimestamp(3));
-				r.setReimb_resolved(rs.getTimestamp(4));
+				//r.setReimb_submitted(rs.getTimestamp(3));
+				//r.setReimb_resolved(rs.getTimestamp(4));
 				r.setReimb_description(rs.getString(5));
 				//r.setReimb_receipt(rs.getBlob(6));
 				r.setReimb_author(rs.getInt(6));
-				r.setReimb_resolver(rs.getInt(7));
+				//r.setReimb_resolver(rs.getInt(7));
 				r.setReimb_status_id(rs.getInt(8));
 				r.setReimb_type_id(rs.getInt(9));
-
+				
+				lr.add(r);
 			}
 			
-			System.out.println(r);
+			System.out.println(lr);
 			
-			return r;
+			return lr;
 			
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -137,19 +138,20 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 	
 	
 	@Override
-	public Reimbursement getReimbursementByStatus(int reimb_status) {
+	public List<Reimbursement> getReimbursementByStatus(int reimb_status) {
 		
-		Reimbursement r = new Reimbursement();
+		List<Reimbursement> lr = new ArrayList<Reimbursement>();
 		
 		try {
 			Connection con = conUtil.getCon();
 			
-			String sql = "SELECT * FROM ers_reimbursement WHERE ers_reimbursement.reimb_status = '" + reimb_status + "'";
+			String sql = "SELECT * FROM ers_reimbursement WHERE ers_reimbursement.reimb_status_id = '" + reimb_status + "'";
 			
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
 			
 			while(rs.next()) {
+				Reimbursement r = new Reimbursement();
 				r.setReimb_id(rs.getInt(1));
 				r.setReimb_amount(rs.getInt(2));
 				r.setReimb_submitted(rs.getTimestamp(3));
@@ -161,11 +163,13 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 				r.setReimb_status_id(rs.getInt(8));
 				r.setReimb_type_id(rs.getInt(9));
 
+				lr.add(r);
+
 			}
 			
-			System.out.println(r);
+			System.out.println(lr);
 			
-			return r;
+			return lr;
 			
 		} catch(SQLException e) {
 			e.printStackTrace();

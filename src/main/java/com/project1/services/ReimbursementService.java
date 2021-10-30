@@ -22,29 +22,31 @@ public class ReimbursementService {
 		this.rDao = r;
 	}
 	
+	/*
 	public Reimbursement retrieveUserReimbursements(User u) {
 		return rDao.getReimbursementByAuthor(u.getErs_users_id());
 	}
+	*/
 	
-	public Reimbursement retrievePendingReimbursements() {
+	public List<Reimbursement> retrievePendingReimbursements() {
 		int reimb_status = 1;
 		return rDao.getReimbursementByStatus(reimb_status);
 	}
 	
-	public void approveReimbursement(User u, int reimb_id) {
+	public void approveReimbursement(int ers_users_id, int reimb_id) {
 		Reimbursement r = rDao.getReimbursementById(reimb_id);
 		
 		r.setReimb_status_id(2);
-		r.setReimb_resolver(u.getErs_users_id());
+		r.setReimb_resolver(ers_users_id);
 		
 		rDao.updateReimbursement(r);
 	}
 	
-	public void denyReimbursement(User u, int reimb_id) {
+	public void denyReimbursement(int ers_users_id, int reimb_id) {
 		Reimbursement r = rDao.getReimbursementById(reimb_id);
 		
 		r.setReimb_status_id(3);
-		r.setReimb_resolver(u.getErs_users_id());
+		r.setReimb_resolver(ers_users_id);
 		
 		rDao.updateReimbursement(r);
 	}
@@ -63,6 +65,10 @@ public class ReimbursementService {
 	
 	public List<Reimbursement> retrievAllReimbursements(){
 		return rDao.getAllReimbursements();
+	}
+	
+	public List<Reimbursement> getEmployeeReimbursements(int author_id){
+		return rDao.getReimbursementsByAuthor(author_id);
 	}
 	
 

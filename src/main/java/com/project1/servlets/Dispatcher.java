@@ -27,15 +27,15 @@ public class Dispatcher {
 				CreateReimbursementController.createReimbursement(req, res);
 				break;
 			
-			case "Project-1/api/employeeReimbursements":
+			case "/Project-1/api/employeeReimbursements":
 				EmployeeReimbursementsController.employeeReimbursements(req, res);
 				break;
 				
-			case "Project-1/api/pendingReimbursements":
+			case "/Project-1/api/pendingReimbursements":
 				PendingReimbursementsController.pendingReimbursements(req, res);
 				break;
 				
-			case "Project-1/api/viewEmployees":
+			case "/Project-1/api/viewEmployees":
 				ViewEmployeesController.viewEmployees(req, res);
 				break;
 		}

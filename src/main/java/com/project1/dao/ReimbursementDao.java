@@ -13,9 +13,9 @@ public interface ReimbursementDao {
 	
 	void deleteReimbursement(int reimb_id);
 
-	Reimbursement getReimbursementByStatus(int reimb_status);
+	List<Reimbursement> getReimbursementByStatus(int reimb_status);
 	
-	Reimbursement getReimbursementByAuthor(int reimb_author);
+	List<Reimbursement> getReimbursementsByAuthor(int reimb_author);
 	
 	Reimbursement getReimbursementById(int reimb_id);
 	

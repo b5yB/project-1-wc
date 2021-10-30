@@ -1,3 +1,6 @@
+let sessionUser = JSON.parse(sessionStorage.getItem("sessionUser"));
+console.log(sessionUser);
+
 let form = document.getElementById("login").addEventListener("submit", login);
 
 async function login(e){

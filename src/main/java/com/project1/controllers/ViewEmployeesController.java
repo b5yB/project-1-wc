@@ -1,10 +1,13 @@
 package com.project1.controllers;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project1.dao.ReimbursementDao;
@@ -12,6 +15,7 @@ import com.project1.dao.ReimbursementDaoDB;
 import com.project1.dao.UserDao;
 import com.project1.dao.UserDaoDB;
 import com.project1.models.Reimbursement;
+import com.project1.models.User;
 import com.project1.services.ReimbursementService;
 import com.project1.services.UserService;
 
@@ -22,7 +26,7 @@ public class ViewEmployeesController {
 	private static ReimbursementDao rDao = new ReimbursementDaoDB();
 	private static ReimbursementService rServ = new ReimbursementService(rDao);
 
-	public static void viewEmployees(HttpServletRequest req, HttpServletResponse res) {
+	public static void viewEmployees(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
 		StringBuilder buffer = new StringBuilder();
 		
 		BufferedReader reader = req.getReader();
@@ -41,6 +45,12 @@ public class ViewEmployeesController {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode parsedObj = mapper.readTree(data);
 		
+		List<User> users = uServ.retrievAllEmployees();
+		
+		res.getWriter().write(new ObjectMapper().writeValueAsString(users));
+		
+		
+		/*
 		Double reimb_amount = parsedObj.get("reimb_amount").asDouble();
 		String reimb_description = parsedObj.get("reimb_description").asText();
 		int reimb_author = parsedObj.get("reimb_author").asInt();
@@ -58,7 +68,7 @@ public class ViewEmployeesController {
 			res.setStatus(418);
 			res.getWriter().println("Reimbursement not submitted");
 		}
-		
+		*/
 	}
 
 }

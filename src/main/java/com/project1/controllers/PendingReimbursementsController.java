@@ -1,10 +1,14 @@
 package com.project1.controllers;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.io.JsonEOFException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project1.dao.ReimbursementDao;
@@ -22,7 +26,7 @@ public class PendingReimbursementsController {
 	private static ReimbursementDao rDao = new ReimbursementDaoDB();
 	private static ReimbursementService rServ = new ReimbursementService(rDao);
 
-	public static void pendingReimbursements(HttpServletRequest req, HttpServletResponse res) {
+	public static void pendingReimbursements(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
 		StringBuilder buffer = new StringBuilder();
 		
 		BufferedReader reader = req.getReader();
@@ -41,6 +45,24 @@ public class PendingReimbursementsController {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode parsedObj = mapper.readTree(data);
 		
+		if (parsedObj.get("reimb_status_id").asInt() == 2) {
+			int ers_users_id = parsedObj.get("ers_users_id").asInt();
+			int reimb_id = parsedObj.get("reimb_id").asInt();
+			
+			rServ.approveReimbursement(ers_users_id, reimb_id);
+		}
+		else if (parsedObj.get("reimb_status_id").asInt() == 3) {
+			int ers_users_id = parsedObj.get("ers_users_id").asInt();
+			int reimb_id = parsedObj.get("reimb_id").asInt();
+			
+			rServ.denyReimbursement(ers_users_id, reimb_id);
+		}
+		else {
+			List<Reimbursement> reimbursements = rServ.retrievePendingReimbursements();
+			
+			res.getWriter().write(new ObjectMapper().writeValueAsString(reimbursements));
+		}
+		/*
 		Double reimb_amount = parsedObj.get("reimb_amount").asDouble();
 		String reimb_description = parsedObj.get("reimb_description").asText();
 		int reimb_author = parsedObj.get("reimb_author").asInt();
@@ -58,7 +80,7 @@ public class PendingReimbursementsController {
 			res.setStatus(418);
 			res.getWriter().println("Reimbursement not submitted");
 		}
-		
+		*/
 	}
 
 }
