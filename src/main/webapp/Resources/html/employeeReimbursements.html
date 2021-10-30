@@ -2,11 +2,13 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>ERS Manager Dashboard</title>
+	<title>ERS Employee Dashboard</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+	<script src="../js/employeeReimbursements.js"></script>
+	
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -15,16 +17,34 @@
 				<a class="navbar-brand">ERS</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="./managerDash.html">Home</a></li>
-				<li><a href="./pendingReimbursements.html">Pending Reimbursements</a></li>
-				<li><a href="./viewEmployees.html">View Employees</a></li>
+				<li><a href="./employeeDash.html">Home</a></li>				
+				<li><a href="./createReimbursement.html">New Reimbursement</a></li>
+				<li class="active"><a href="./employeeReimbursements.html">View Reimbursements</a></li>
 			</ul>
 			<ul class="navbar-nav navbar-right">
 				<li><a onclick="logout()" href="./logout.html"><span class="glyphicon glyphicon-log-out" style="margin-right:20px; margin-top:15px">Logout</span></a></li>
 			</ul>
 		</div>
 	</nav>	
-	<script src="../js/managerDash.js"></script>
-
+	<div style="margin-left: 30px">
+		<br/>
+		<h3 >Your Reimbursements</h3>
+		<br/>
+	</div>
+	
+	<div style="margin-left: 30px">
+		<table id="table" data-toggle="table">
+			<thead>
+				<tr>
+					<th data-field="reimb_id">ID</th>
+					<th data-field="reimb_amount">Amount</th>
+					<th data-field="reimb_type_id">Type</th>
+					<th data-field="reimb_description">Description</th>
+					<th data-field="reimb_author">User ID</th>
+					<th data-field="reimb_status_id">Status</th>
+				</tr>
+			</thead>
+		</table>
+	</div>	
 </body>
 </html>

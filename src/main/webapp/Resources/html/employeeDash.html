@@ -1,46 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>ERS Dashboard</title>
+	<meta charset="ISO-8859-1">
+	<title>ERS Employee Dashboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
 </head>
-
 <body>
-	<div class="navbar">
-		<ul class="nav-list">
-			<li class="nav-item">
-				<a class='nav-link' href="#">
-					<img id="profile-pic" src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png" />
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class='nav-link' href="#">Feed</a>
-			</li>
-			<li class="nav-item">
-				<a class='nav-link' href="#">Profile Page</a>
-			</li>
-			<li class="nav-item">
-				<button id="logout">Logout</button>
-			</li>
-		</ul>
-	</div>
-	
-	<div id="main">
-		<h1>Welcome, </h1>
-		
-		<form>
-			<textarea id="post-content" name="content" cols="50" maxlength="250"
-				placeholder="Type your new post here"></textarea>
-			<button id="new-post-btn">Submit New Post</button>
-		</form>
-		
-		<div id="post-container">
-			
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">ERS</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="./employeeDash.html">Home</a></li>				
+				<li><a href="./createReimbursement.html">New Reimbursement</a></li>
+				<li><a href="./employeeReimbursements.html">View Reimbursements</a></li>
+			</ul>
+			<ul class="navbar-nav navbar-right">
+				<li><a onclick="logout()" href="./logout.html"><span class="glyphicon glyphicon-log-out" style="margin-right:20px; margin-top:15px">Logout</span></a></li>
+			</ul>
 		</div>
-	</div>
-	<script src="../js/home.js"></script>
-
+	</nav>	
+	<script src="../js/employeeDash.js"></script>
 </body>
-
-
 </html>

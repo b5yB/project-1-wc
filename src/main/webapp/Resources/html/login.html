@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>ERS Login</title>
+	<meta charset="ISO-8859-1">
+	<title>ERS Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
 </head>
 <body>
-
-	<h1>Welcome to the Employee Reimbursement System</h1>
-	<h3>Please enter you credentials below:</h3>
-	
-	<form id = "login">
-		<label for = "username">Username: </label>
-		<input id = "username" type = "text" name = "username" required/>
-		<label for = "password">Password: </label>
-		<input id = "password" type = "password" name = "password" required/>
-		<input type = "submit" value = "login"/>
-	</form>
-	
+	<div class="container">
+		<div class="jumbotron text-center">
+		<h2>Employee Reimbursement System</h2>
+		<br/>
+		</div>
+		
+		<div class="well text-center">
+		<h4>Please enter your employee credentials:</h4>
+		<br/>
+		<form id = "login" style="text-align:center">
+			<label for = "username">Username: </label>
+			<input id = "username" type = "text" name = "username" required/>
+			<label for = "password">Password: </label>
+			<input id = "password" type = "password" name = "password" required/>
+			<input type = "submit" value = "login"/>
+		</form>
+		</div>
+	</div>
 	<script src = "../js/login.js"></script>
 
 </body>

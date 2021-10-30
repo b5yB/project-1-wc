@@ -46,7 +46,7 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 			ResultSet rs = s.executeQuery(sql);
 			
 			while(rs.next()) {
-				reimbList.add(new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getTimestamp(3), rs.getTimestamp(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9)));
+				reimbList.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getTimestamp(3), rs.getTimestamp(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9)));
 			}
 			
 			System.out.println(reimbList);
@@ -76,7 +76,7 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 			
 			while(rs.next()) {
 				r.setReimb_id(rs.getInt(1));
-				r.setReimb_amount(rs.getDouble(2));
+				r.setReimb_amount(rs.getInt(2));
 				r.setReimb_submitted(rs.getTimestamp(3));
 				r.setReimb_resolved(rs.getTimestamp(4));
 				r.setReimb_description(rs.getString(5));
@@ -113,7 +113,7 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 			
 			while(rs.next()) {
 				r.setReimb_id(rs.getInt(1));
-				r.setReimb_amount(rs.getDouble(2));
+				r.setReimb_amount(rs.getInt(2));
 				r.setReimb_submitted(rs.getTimestamp(3));
 				r.setReimb_resolved(rs.getTimestamp(4));
 				r.setReimb_description(rs.getString(5));
@@ -151,7 +151,7 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 			
 			while(rs.next()) {
 				r.setReimb_id(rs.getInt(1));
-				r.setReimb_amount(rs.getDouble(2));
+				r.setReimb_amount(rs.getInt(2));
 				r.setReimb_submitted(rs.getTimestamp(3));
 				r.setReimb_resolved(rs.getTimestamp(4));
 				r.setReimb_description(rs.getString(5));
@@ -179,19 +179,19 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 		try {
 			Connection con = conUtil.getCon();
 			
-			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id, reimb_type_id) values"
-					+ "(?,?,?,?,?,?)";
+			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_description, reimb_author, reimb_status_id, reimb_type_id) values"
+					+ "(?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setDouble(1, r.getReimb_amount());
-			ps.setTimestamp(2, r.getReimb_submitted());
+			ps.setInt(1, r.getReimb_amount());
+			//ps.setTimestamp(2, r.getReimb_submitted());
 			//ps.setTimestamp(3, r.getReimb_resolved());
-			ps.setString(3, r.getReimb_description());
+			ps.setString(2, r.getReimb_description());
 			//ps.setBlob(5, r.getReimb_receipt());
-			ps.setInt(4, r.getReimb_author());
+			ps.setInt(3, r.getReimb_author());
 			//ps.setInt(6, r.getReimb_resolver());
-			ps.setInt(5, r.getReimb_status_id());
-			ps.setInt(6, r.getReimb_type_id());
+			ps.setInt(4, r.getReimb_status_id());
+			ps.setInt(5, r.getReimb_type_id());
 	
 			System.out.println(r.toString());
 			
@@ -201,7 +201,6 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -209,21 +208,21 @@ public class ReimbursementDaoDB implements ReimbursementDao {
 		
 		try {
 			Connection con = conUtil.getCon();
-			String sql = "UPDATE ers_reimbursement SET reimb_amount = ?, reimb_submitted = ?, reimb_resolved = ?, reimb_description = ?, reimb_author = ?, reimb_resolver = ?, reimb_status_id = ?, reimb_type_id = ?"
+			String sql = "UPDATE ers_reimbursement SET reimb_amount = ?, reimb_submitted = ?, reimb_resolved = now(), reimb_description = ?, reimb_author = ?, reimb_resolver = ?, reimb_status_id = ?, reimb_type_id = ?"
 					+ "WHERE ers_reimbursement.reimb_id = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setDouble(1, r.getReimb_amount());
+			ps.setInt(1, r.getReimb_amount());
 			ps.setTimestamp(2, r.getReimb_submitted());
-			ps.setTimestamp(3, r.getReimb_resolved());
-			ps.setString(4, r.getReimb_description());
+			//ps.setTimestamp(3, r.getReimb_resolved());
+			ps.setString(3, r.getReimb_description());
 			//ps.setBlob(5, r.getReimb_receipt());
-			ps.setInt(5, r.getReimb_author());
-			ps.setInt(6, r.getReimb_resolver());
-			ps.setInt(7, r.getReimb_status_id());
-			ps.setInt(8, r.getReimb_type_id());
-			ps.setInt(9, r.getReimb_id());
+			ps.setInt(4, r.getReimb_author());
+			ps.setInt(5, r.getReimb_resolver());
+			ps.setInt(6, r.getReimb_status_id());
+			ps.setInt(7, r.getReimb_type_id());
+			ps.setInt(8, r.getReimb_id());
 			
 			ps.execute();
 			

@@ -10,8 +10,7 @@ async function login(e){
 	let user = {
 		username,
 		password
-		
-	}
+	};
 	
 	try {
 		
@@ -26,9 +25,21 @@ async function login(e){
 		
 		});
 		
-		let res = await req.json(); 
+		let res = await req.json();
 		
-		location.href = '../html/dashboard.html';
+		let sessionUser = {
+			ers_users_id: res.ers_users_id,
+			ers_username: res.ers_username
+		};
+		
+		sessionStorage.setItem("sessionUser", JSON.stringify(sessionUser));
+		
+		if(res.user_role_id == 1){
+			location.href = '../html/employeeDash.html';	
+		}
+		else if(res.user_role_id == 2){
+			location.href = '../html/managerDash.html';	
+		}
 		
 	} catch (e){
 		alert('Username or password was incorrect');

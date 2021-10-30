@@ -23,3 +23,6 @@
 2021-10-27 17:18:49 WARN  Logging:42 - User tried logging in that does not exist
 2021-10-27 17:18:49 INFO  Logging:50 - User was logged in
 2021-10-27 17:18:49 WARN  Logging:46 - User tried to login with invalid credentials
+2021-10-28 13:56:14 WARN  Logging:28 - User tried logging in that does not exist
+2021-10-28 13:56:14 INFO  Logging:36 - User was logged in
+2021-10-28 13:56:14 WARN  Logging:32 - User tried to login with invalid credentials
