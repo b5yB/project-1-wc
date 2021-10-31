@@ -45,22 +45,24 @@ public class PendingReimbursementsController {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode parsedObj = mapper.readTree(data);
 		
-		if (parsedObj.get("reimb_status_id").asInt() == 2) {
+		List<Reimbursement> reimbursements = rServ.retrievePendingReimbursements();
+		
+		res.getWriter().write(new ObjectMapper().writeValueAsString(reimbursements));
+		
+		int reimb_status_id = parsedObj.get("reimb_status_id").asInt();
+
+		
+		if (reimb_status_id == 2) {
 			int ers_users_id = parsedObj.get("ers_users_id").asInt();
 			int reimb_id = parsedObj.get("reimb_id").asInt();
 			
 			rServ.approveReimbursement(ers_users_id, reimb_id);
 		}
-		else if (parsedObj.get("reimb_status_id").asInt() == 3) {
+		else if (reimb_status_id == 3) {
 			int ers_users_id = parsedObj.get("ers_users_id").asInt();
 			int reimb_id = parsedObj.get("reimb_id").asInt();
 			
 			rServ.denyReimbursement(ers_users_id, reimb_id);
-		}
-		else {
-			List<Reimbursement> reimbursements = rServ.retrievePendingReimbursements();
-			
-			res.getWriter().write(new ObjectMapper().writeValueAsString(reimbursements));
 		}
 		/*
 		Double reimb_amount = parsedObj.get("reimb_amount").asDouble();

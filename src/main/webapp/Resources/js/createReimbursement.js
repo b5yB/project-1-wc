@@ -46,7 +46,7 @@ async function createReimbursement(e){
 		let res = await req.json();
 		console.log(res);
 		alert('Reimbursement submitted');
-		location.href="./employeeDash.html"
+		location.href="./createReimbursement.html"
 	}
 	catch(e){
 		console.log(e);

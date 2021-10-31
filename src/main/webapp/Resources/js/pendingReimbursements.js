@@ -49,11 +49,77 @@ function populatePending(res){
 	}
 }
 
-function approve(){
+document.getElementById("approve").addEventListener('click', approve);
+document.getElementById("deny").addEventListener('click', deny);
+
+
+async function approve(e){
 	
+	e.preventDefault();
+	
+	let reimb_id = document.getElementById("reimb_id").value;
+	let ers_users_id = sessionUser.ers_users_id;
+	let reimb_status_id = 2;
+	
+	let approval = {
+		reimb_id,
+		ers_users_id,
+		reimb_status_id
+	}
+	
+	try{
+		let req = await fetch('http://localhost:8080/Project-1/api/pendingReimbursements', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'text'
+			},
+			body: JSON.stringify(approval)	
+		});
+		let res = await req.json();
+		console.log(res);
+		alert('Reimbursement Approved');
+		location.href="./pendingReimbursements.html"
+	}
+	catch(e){
+		console.log(e);
+		alert('Reimbursement not updated');
+	}
+	
+			
 }
 
-function deny(){
+async function deny(e){
+	
+	e.preventDefault();
+	
+	let reimb_id = document.getElementById("reimb_id").value;
+	let ers_users_id = sessionUser.ers_users_id;
+	let reimb_status_id = 3;
+	
+	let denial = {
+		reimb_id: reimb_id,
+		ers_users_id: ers_users_id,
+		reimb_status_id: reimb_status_id
+	}
+	
+	try{
+		let req = await fetch('http://localhost:8080/Project-1/api/pendingReimbursements', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'text'
+			},
+			body: JSON.stringify(denial)	
+		});
+		let res = await req.json();
+		console.log(res);
+		alert('Reimbursement Denied');	
+		location.href="./pendingReimbursements.html"
+
+	}
+	catch(e){
+		console.log(e);
+		alert('Reimbursement not updated');
+	}
 	
 }
 
